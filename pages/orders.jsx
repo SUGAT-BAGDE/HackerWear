@@ -49,7 +49,7 @@ const Orders = ({}) => {
 
             {orders.map((order) => {
               return (
-                <Link href={`/order?orderId=${order._id}`}><tr className="border-b bg-gray-800 border-gray-700">
+                <Link href={`/order?orderId=${order._id}`} key={order._id}><tr className="border-b bg-gray-800 border-gray-700">
                   <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap">
                     #{order._id.substr(0, 20)}...
                   </th>

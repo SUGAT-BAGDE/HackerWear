@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { useState, } from 'react'
 import Link from 'next/link'
 import { toast, } from 'react-toastify';
 
-const login = ({ login }) => {
+const Login = ({ login }) => {
 
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleChange = e => {
     if (e.target.name == 'email') {
@@ -103,4 +103,4 @@ const login = ({ login }) => {
   )
 }
 
-export default login
+export default Login

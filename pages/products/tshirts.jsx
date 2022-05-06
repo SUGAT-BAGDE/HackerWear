@@ -58,7 +58,7 @@ const Tshirts = ({ products }) => {
                         <h5 className="text-slate-200 text-xl font-medium my-2">{products[product].title}</h5>
                         <p className="text-slate-400 text-base my-1">
                           {products[product].size.map((size) => {
-                            return <span key={size} className='mx-1'>{size.toUpperCase()}</span>
+                            return <span className='mx-1' key={size}>{size.toUpperCase()}</span>
                           })}
                         </p>
                         <p className="text-slate-300 my-4 text-left">₹ {products[product].price}</p>
