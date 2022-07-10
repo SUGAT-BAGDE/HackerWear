@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import Product from "../../Models/Product";
-import connectDb from "../../middleware/mongoose";
+import Product from "../../../Models/Product";
+import connectDb from "../../../middleware/mongoose";
 
 const handler = async (req, res) => {
     if (req.method == 'POST') {
@@ -9,7 +9,7 @@ const handler = async (req, res) => {
                 let p = await Product.create(item)
                 console.log(p)
             } catch (error) {
-                res.status(500).json({ error : `error while adding ${item.slug}` })
+                res.status(400).json({ error : `error while adding ${item.slug}` })
                 return
             }
         }

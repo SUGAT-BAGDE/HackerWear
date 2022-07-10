@@ -88,13 +88,13 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
     buyNow(slug, 1, 499, `${product.title} (${product.size.toUpperCase()}, ${product.color.toUpperCase()})`, {})
   }
 
-  return <>
+  return <div>
     <section className="text-gray-400 bg-gray-900 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <img alt="ecommerce" className="lg:w-1/3 w-full lg:h-auto h-full bg-gray-800 object-contain object-center rounded-xl rounded-t-xl  shadow-black shadow-lg" src={product.img} />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <h1 className="text-white text-3xl title-font font-medium mb-1">{product.title} ({product.size}/{product.color.toUpperCase()})</h1>
+            <h1 className="text-white text-3xl title-font font-medium mb-1">{product.title} ({product.size.toUpperCase()}/{product.color.toUpperCase()})</h1>
             <div className="flex mb-4">
               <span className="flex items-center">
                 <svg fill="currentColor" stroke="currentColor" strokeinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-[#00ff00]" viewBox="0 0 24 24">
@@ -134,7 +134,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
             </div>
             <p className="leading-relaxed">{product.desc}</p>
             {Object.keys(varients).length >= 2
-              && <>
+              && <div>
                 {Object.keys(varients[size.toUpperCase()]) != 0
                   &&
                   <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-800 mb-5">
@@ -143,16 +143,16 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
 
                       {Object.keys(varients[size.toUpperCase()]).map((item) => {
                         return (
-                          <>
-                            {(item.toLocaleLowerCase() == "red") && <Link key={item} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#f00] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "green") && <Link key={item} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#0f0] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "blue") && <Link key={item} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#00f] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "purple") && <Link key={item} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-purple-700 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "yellow") && <Link key={item} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-yellow-500 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "white") && <Link key={item} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-white rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "black") && <Link key={item} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-black rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "pink") && <Link key={item} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-pink-600 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                          </>
+                          <a key={item}>
+                            {(item.toLocaleLowerCase() == "red") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#f00] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "green") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#0f0] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "blue") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#00f] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "purple") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-purple-700 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "yellow") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-yellow-500 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "white") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-white rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "black") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-black rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "pink") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-pink-600 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                          </a>
                         )
                       })
 
@@ -167,7 +167,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
                       <div className="relative">
                         <select onChange={handleChange} defaultValue={product.size.toUpperCase()} name="size-selection" className="rounded border border-gray-700 focus:ring-2 focus:ring-[#00ff00] bg-transparent appearance-none py-2 focus:outline-none focus:border-[#00ff00] text-[#5f5f5f] pl-3 pr-10">
                           {Object.keys(varients).map((varient) => {
-                            return <option key={varient} value={varient} className={"bg-gray-900 text-[#0f0] outline-0"}>{varient}</option>
+                            return <option key={varient} value={varient} className={"bg-gray-900 text-[#0f0] outline-0"}>{varient.toLocaleUpperCase()}</option>
                           })
 
                           }
@@ -180,7 +180,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
                       </div>
                     </div>
                   </div>
-                }</>
+                }</div>
             }
             <div className="flex mt-6">
               <span className="title-font font-medium text-2xl text-white">₹ {product.price}</span>
@@ -215,7 +215,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
         </div>
       </div>
     </section>
-  </>
+  </div>
 }
 
 export default Slug

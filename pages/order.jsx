@@ -15,8 +15,8 @@ export async function getServerSideProps(context) {
     let products = JSON.parse(JSON.stringify(order.products))
     order.products = []
     for (const product of products) {
-      let { price, title, size, color, slug } = JSON.parse(JSON.stringify(await Product.findOne({ slug: product.productId })))
-      order.products.push({ title, size, color, price: (price * product.quantity), qty: product.quantity, slug })
+      let { price, title, size, color, slug, img } = JSON.parse(JSON.stringify(await Product.findOne({ slug: product.productId })))
+      order.products.push({ title, size, color, price: (price * product.quantity), qty: product.quantity, slug, img })
     }
 
     return {
@@ -28,6 +28,44 @@ export async function getServerSideProps(context) {
       props: { order: null },
     }
   }
+}
+import Link from 'next/link'
+
+const MyProductCard = ({ product }) => {
+    return (
+        <Link href={`/product/${product.slug}`}>
+            <a>
+                <div className="rounded-lg w-auto h-full bg-[#0e0e0e] shadow-black overflow-hidden shadow-lg flex flex-col">
+                    <img className="h-[20rem] w-[20rem] flex m-auto rounded mt-3 object-contain row-span-2" src={product.img} alt={product.title} />
+                    <div className="px-3 py-4">
+                        <div className="p-2 flex flex-col row-span-2 justify-center">
+                            <h5 className="text-slate-200 text-xl font-medium my-2">{product.title}</h5>
+                            <p className="text-slate-400 text-base my-1">
+                                <span className='mx-1'>{product.size.toUpperCase()}</span>
+                            </p>
+                            <p className="text-slate-400 text-base my-1">
+                                <span className='mx-1'>Quantity : {product.qty}</span>
+                            </p>
+                            <p className="text-slate-400 text-base my-1">
+                                <span className='mx-1'>Total : ₹{product.price}</span>
+                            </p>
+                            <p className="text-slate-300 my-4 text-left">₹ {product.price}</p>
+                            <div className="text-slate-400 text-base my-1">
+                                {(product.color == "Blue" || product.color == "blue" || product.color == "BLUE") && <button className="border-2 border-gray-700 bg-[#00f] rounded-full w-6 h-6 focus:outline-none mx-1" />}
+                                {(product.color == "Green" || product.color == "green" || product.color == "GREEN") && <button className="border-2 border-gray-700 bg-[#0f0] rounded-full w-6 h-6 focus:outline-none mx-1" />}
+                                {(product.color == "Purple" || product.color == "purple" || product.color == "PURPLE") && <button className="border-2 border-gray-700 bg-purple-600 rounded-full w-6 h-6 focus:outline-none mx-1" />}
+                                {(product.color == "Yellow" || product.color == "yellow" || product.color == "YELLOW") && <button className="border-2 border-gray-700 bg-yellow-500 rounded-full w-6 h-6 focus:outline-none mx-1" />}
+                                {(product.color == "Pink" || product.color == "pink" || product.color == "PINK") && <button className="border-2 border-gray-700 bg-pink-600 rounded-full w-6 h-6 focus:outline-none mx-1" />}
+                                {(product.color == "White" || product.color == "ehite" || product.color == "WHITE") && <button className="border-2 border-gray-700 bg-white rounded-full w-6 h-6 focus:outline-none mx-1" />}
+                                {(product.color == "Black" || product.color == "black" || product.color == "BLACK") && <button className="border-2 border-gray-700 bg-black rounded-full w-6 h-6 focus:outline-none mx-1" />}
+                                {(product.color == "Red" || product.color == "red" || product.color == "RED") && <button className="border-2 border-gray-700 bg-[#f00] rounded-full w-6 h-6 focus:outline-none mx-1" />}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </Link>
+    )
 }
 
 const OrderPage = ({ order }) => {
@@ -84,10 +122,21 @@ const OrderPage = ({ order }) => {
               </div>
             </div>
             {/* <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="/icon.png" /> */}
-            <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
+            {/* <Image alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" /> */}
+            <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-2xl" src={"/home.png"} />
           </div>
         </div>
       </section>
+        <section className="container px-5 py-24 mx-auto">
+
+          <div className="sm:p-10 grid items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+
+              {Object.keys(order.products).map((product) => 
+                {return <MyProductCard product={order.products[product]} key={order.products[product]}/>})
+              }
+
+            </div>
+        </section>
 
     </div>
   )

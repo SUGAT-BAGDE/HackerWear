@@ -42,44 +42,42 @@ function MyApp({ Component, pageProps }) {
     const token = localStorage.getItem('token')
     setUser({ value: token })
     if (token) {
-      let authenticate = async () => {
-        let a = await fetch("/api/verify-user",
-          {
-            headers: { token },
+      fetch("/api/verify-user",
+        {
+          headers: { token },
+        }).then(a => {
+          a.json().then(response => {
+            if (response.status == "available") {
+              return
+            }
+            else if (response.status == "unavailable") {
+              toast.error("Please log into your account", {
+                position: "top-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                progressStyle: { background: "#f00" }
+              })
+              setUser({ value: null })
+            }
+            else if (response.status == "expired") {
+              toast.error("Please log again your account", {
+                position: "top-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                progressStyle: { background: "#f00" }
+              })
+              setUser({ value: null })
+            }
           })
-        let response = await a.json()
-        if (response.status == "available") {
-          return
-        }
-        else if (response.status == "unavailable") {
-          toast.error("Please log into your account", {
-            position: "top-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
-            progressStyle: { background: "#f00" }
-          })
-          setUser({ value: null })
-        }
-        else if (response.status == "expired") {
-          toast.error("Please log again your account", {
-            position: "top-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
-            progressStyle: { background: "#f00" }
-          })
-          setUser({ value: null })
-        }
-
-      }
-      authenticate()
+        })
       setKey(Math.random())
     }
   }, [])
@@ -117,6 +115,7 @@ function MyApp({ Component, pageProps }) {
   const buyNow = (productId, qty, price, name, extras) => {
     let newCart = {}
     newCart[productId] = { qty, price, name, extras }
+    setTotal(price)
     saveCart(newCart)
     router.push('/checkout')
   }
@@ -166,7 +165,9 @@ function MyApp({ Component, pageProps }) {
     router.back()
     setKey(Math.random())
   }
+
   const logout = () => {
+    router.push('/')
     localStorage.removeItem("token")
     setUser({ value: null })
     setKey(Math.random())
@@ -210,7 +211,6 @@ function MyApp({ Component, pageProps }) {
       pauseOnHover
       progressStyle={{ background: "#0f0" }}
     />
-
     <Navbar logout={logout} key={key} user={user} cart={cart} buyNow={buyNow} subTotal={subTotal} addToCart={addToCart} removeFromCart={removeFromCart} increaseQtyToCart={increaseQtyToCart} reduceQtyFromCart={reduceQtyFromCart} clearCart={clearCart} />
     <Component {...pageProps} user={user} login={login} logout={logout} buyNow={buyNow} cart={cart} subTotal={subTotal} addToCart={addToCart} removeFromCart={removeFromCart} increaseQtyToCart={increaseQtyToCart} reduceQtyFromCart={reduceQtyFromCart} clearCart={clearCart} />
     <Footer />

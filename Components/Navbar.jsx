@@ -21,7 +21,7 @@ const Navbar = (props) => {
   }
 
   return (
-    <div className='bg-gray-900 flex flex-col md:flex-row md:justify-start justify-center items-center text-white'>
+    <div id='hackerwearNav' className='bg-gray-900 flex flex-col md:flex-row md:justify-start justify-center items-center text-white'>
       <Link href={'/'}><a>
         <div className='space-x-2 py-2 px-2 flex justify-center items-center mx-5 text-[#00ff00]'>
           <Image src="/icon.png" alt="" width={40} height={40} className="inline" />
@@ -67,7 +67,7 @@ const Navbar = (props) => {
                 {
                   Object.keys(props.cart).map((key) => {
                     return (
-                      <li key={key}>
+                      <li key={JSON.stringify(props.cart[key])}>
                         <span>
                           <div className='flex'>
 

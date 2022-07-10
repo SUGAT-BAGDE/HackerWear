@@ -22,6 +22,9 @@ const handler = async (req, res) => {
                     await Product.findByIdAndUpdate(_id, {availableQty : availableQty - product.quantity})
                     amount = amount + (price*product.quantity)
                 }
+                else {
+                    res.status(200).json({ success : false, message: `${p.title} Product Out Of Stock`})
+                }
             } catch (error) {
                 
             }
