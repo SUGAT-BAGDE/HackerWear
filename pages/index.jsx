@@ -10,6 +10,7 @@ export default function Home() {
         <title>Hackerwear.com - Wear the crypto!</title>
         <meta name="description" content="Hackerwear.com - Wear the crypto!" />
         <link rel="icon" href="/favicon.png"/>
+        <meta name="google-site-verification" content="c5VKMlzA-wGF8P4CHfJs35rIrptlGbKnJsmxF8mGsj4" />
       </Head>
 
       <div>
