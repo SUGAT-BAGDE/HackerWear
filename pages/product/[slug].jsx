@@ -11,28 +11,28 @@ export async function getServerSideProps(context) {
   }
 
   let product = JSON.parse(JSON.stringify(await Product.findOne({ slug: context.params.slug })))
-  let avilableVarients = JSON.parse(JSON.stringify(await Product.find({ title: product.title, category: product.category })))
+  let avilablevariants = JSON.parse(JSON.stringify(await Product.find({ title: product.title, category: product.category })))
 
-  let varients = {}
+  let variants = {}
 
-  for (const varient of avilableVarients) {
-    if (Object.keys(varients).includes(varient.size.toUpperCase()) && varient.availableQty > 0) {
-      varients[varient.size.toUpperCase()][varient.color.toLowerCase()] = varient
+  for (const variant of avilablevariants) {
+    if (Object.keys(variants).includes(variant.size.toUpperCase()) && variant.availableQty > 0) {
+      variants[variant.size.toUpperCase()][variant.color.toLowerCase()] = {slug : variant.slug}
     }
     else {
-      if (varient.availableQty > 0) {
-        varients[varient.size.toUpperCase()] = {}
-        varients[varient.size.toUpperCase()][varient.color.toLowerCase()] = varient
+      if (variant.availableQty > 0) {
+        variants[variant.size.toUpperCase()] = {}
+        variants[variant.size.toUpperCase()][variant.color.toLowerCase()] = {slug : variant.slug}
       }
     }
   }
 
   return {
-    props: { product, varients, }, // will be passed to the page component as props
+    props: { product, variants, }, // will be passed to the page component as props
   }
 }
 
-const Slug = ({ addToCart, product, varients, buyNow }) => {
+const Slug = ({ addToCart, product, variants, buyNow }) => {
   const router = useRouter()
   const { slug } = router.query
   const [service, setService] = useState()
@@ -77,7 +77,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
   const handleChange = (e) => {
     if (e.target.name == "size-selection") {
       setSize(e.target.value)
-      router.push(`/product/${varients[e.target.value][Object.keys(varients[e.target.value])[0]].slug}`)
+      router.push(`/product/${variants[e.target.value][Object.keys(variants[e.target.value])[0]].slug}`)
     }
   }
 
@@ -133,25 +133,24 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
               </span>
             </div>
             <p className="leading-relaxed">{product.desc}</p>
-            {Object.keys(varients).length >= 2
+            {Object.keys(variants).length >= 2
               && <div>
-                {Object.keys(varients[size.toUpperCase()]) != 0
+                {Object.keys(variants[size.toUpperCase()]) != 0
                   &&
                   <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-800 mb-5">
                     <div className="flex">
                       <span className="mr-3">Color</span>
-
-                      {Object.keys(varients[size.toUpperCase()]).map((item) => {
+                      {Object.keys(variants[size.toUpperCase()]).map((item) => {
                         return (
                           <a key={item}>
-                            {(item.toLocaleLowerCase() == "red") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#f00] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "green") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#0f0] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "blue") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#00f] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "purple") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-purple-700 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "yellow") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-yellow-500 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "white") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-white rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "black") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-black rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
-                            {(item.toLocaleLowerCase() == "pink") && <Link key={varients[size.toUpperCase()][item].slug} href={`/product/${varients[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-pink-600 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "red") && <Link key={variants[size.toUpperCase()][item].slug} href={`/product/${variants[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#f00] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "green") && <Link key={variants[size.toUpperCase()][item].slug} href={`/product/${variants[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#0f0] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "blue") && <Link key={variants[size.toUpperCase()][item].slug} href={`/product/${variants[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-[#00f] rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "purple") && <Link key={variants[size.toUpperCase()][item].slug} href={`/product/${variants[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-purple-700 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "yellow") && <Link key={variants[size.toUpperCase()][item].slug} href={`/product/${variants[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-yellow-500 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "white") && <Link key={variants[size.toUpperCase()][item].slug} href={`/product/${variants[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-white rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "black") && <Link key={variants[size.toUpperCase()][item].slug} href={`/product/${variants[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-black rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
+                            {(item.toLocaleLowerCase() == "pink") && <Link key={variants[size.toUpperCase()][item].slug} href={`/product/${variants[size.toUpperCase()][item].slug}`}><button className="border-2 border-gray-700 bg-pink-600 rounded-full w-6 h-6 focus:outline-none mx-1"></button></Link>}
                           </a>
                         )
                       })
@@ -166,8 +165,8 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
                       <span className="mr-3">Size</span>
                       <div className="relative">
                         <select onChange={handleChange} defaultValue={product.size.toUpperCase()} name="size-selection" className="rounded border border-gray-700 focus:ring-2 focus:ring-[#00ff00] bg-transparent appearance-none py-2 focus:outline-none focus:border-[#00ff00] text-[#5f5f5f] pl-3 pr-10">
-                          {Object.keys(varients).map((varient) => {
-                            return <option key={varient} value={varient} className={"bg-gray-900 text-[#0f0] outline-0"}>{varient.toLocaleUpperCase()}</option>
+                          {Object.keys(variants).map((variant) => {
+                            return <option key={variant} value={variant} className={"bg-gray-900 text-[#0f0] outline-0"}>{variant.toLocaleUpperCase()}</option>
                           })
 
                           }

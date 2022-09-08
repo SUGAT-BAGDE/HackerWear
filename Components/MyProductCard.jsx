@@ -5,7 +5,7 @@ const MyProductCard = ({ product }) => {
     return (
         <Link href={`/product/${product.slug}`}>
             <a>
-                <div className="rounded-lg w-auto h-[35rem] bg-[#0e0e0e] shadow-black overflow-hidden shadow-lg flex flex-col">
+                <div className="rounded-lg w-auto h-[35rem] bg-[#0e0e0e] shadow-black overflow-hidden shadow-lg flex flex-col" href={`/product/${product.slug}`}>
                     <img className="h-[20rem] w-[20rem] flex m-auto rounded mt-3 object-contain row-span-2" src={product.img} alt={product.title} />
                     <div className="px-3 py-4">
                         <div className="p-2 flex flex-col row-span-2 justify-center">
