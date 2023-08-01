@@ -21,7 +21,7 @@
     "crypto-js": "^4.1.1",
     "feather-icons-react": "^0.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.4.6",
+    "mongoose": "^6.11.3",
     "next": "12.1.0",
     "prop-types": "15.7.2",
     "react": "17.0.2",
