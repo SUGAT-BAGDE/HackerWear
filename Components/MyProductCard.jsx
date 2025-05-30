@@ -12,7 +12,7 @@ const MyProductCard = ({ product }) => {
                         <div className="p-5 flex flex-col row-span-2 justify-center">
                             <h5 className="text-slate-200 text-xl font-medium my-2 h-12">{product.title}</h5>
 
-                            <div className='flex flex-row mt-1'>
+{/*                             <div className='flex flex-row mt-1'> */}
                                 <p className="text-slate-400 text-base my-1 w-[85%]">
                                     {product.size.map((size) => {
                                         return <span className='mx-1' key={size}>{size.toUpperCase()}</span>
@@ -28,7 +28,7 @@ const MyProductCard = ({ product }) => {
                                     {(product.color.includes("black") || product.color.includes("Black") || product.color.includes("BLACK")) && <button className="border-2 border-gray-700 bg-black rounded-full w-6 h-6 focus:outline-none mx-1" />}
                                     {(product.color.includes("red") || product.color.includes("Red") || product.color.includes("RED")) && <button className="border-2 border-gray-700 bg-[#f00] rounded-full w-6 h-6 focus:outline-none mx-1" />}
                                 </div>
-                            </div>
+{/*                             </div> */}
                             <p className="text-slate-300 my-4 text-center font-bold">₹ {product.price}</p>
                         </div>
             </div>
