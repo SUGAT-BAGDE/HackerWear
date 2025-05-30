@@ -13,12 +13,12 @@ const MyProductCard = ({ product }) => {
                             <h5 className="text-slate-200 text-xl font-medium my-2 h-12">{product.title}</h5>
 
 {/*                             <div className='flex flex-row mt-1'> */}
-                                <p className="text-slate-400 text-base my-1 w-[85%]">
+                                <p className="text-slate-400 text-base my-1">
                                     {product.size.map((size) => {
                                         return <span className='mx-1' key={size}>{size.toUpperCase()}</span>
                                     })}
                                 </p>
-                                <div className="flex text-slate-400 text-base my-1 justify-end w-[15%]">
+                                <div className="flex text-slate-400 text-base my-1 justify-end">
                                     {(product.color.includes("Blue") || product.color.includes("blue") || product.color.includes("BLUE")) && <button className="border-2 border-gray-700 bg-[#00f] rounded-full w-6 h-6 focus:outline-none mx-1" />}
                                     {(product.color.includes("Green") || product.color.includes("green") || product.color.includes("GREEN")) && <button className="border-2 border-gray-700 bg-[#0f0] rounded-full w-6 h-6 focus:outline-none mx-1" />}
                                     {(product.color.includes("Purple") || product.color.includes("purple") || product.color.includes("PURPLE")) && <button className="border-2 border-gray-700 bg-purple-600 rounded-full w-6 h-6 focus:outline-none mx-1" />}
